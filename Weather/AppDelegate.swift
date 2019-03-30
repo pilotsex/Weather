@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  Weather
 //
-//  Created by Csaba Kertesz on 2019. 03. 30..
+//  Created by Csaba K. on 2019. 03. 30..
 //  Copyright © 2019. Csaba K. All rights reserved.
 //
 

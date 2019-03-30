@@ -36,23 +36,13 @@ class CitiesViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = "Weather"
-        //TODO the placements of the Edit/Add buttons are a little unconventional, I sould move the Add button to the footer or something
+        //TODO the placements of the Edit/Add buttons are a little unconventional, I should move the Add button to the footer or something
         navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(addCity))
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Edit", style: .plain , target: self, action: #selector(editTable))
     }
     
     
-    private func loadCities() -> [CityCellData]? {
-        if let loadedCellData = UserDefaults.standard.data(forKey: "Cities") {
-            print("successfully loaded from defaults")
-            if let decodedData = try? JSONDecoder().decode(Array<CityCellData>.self, from: loadedCellData) {
-                return decodedData
-            }
-        }
-        return nil
-    }
-    
-    
+    // the amount of data is quite small, using defaults here is reasonable
     private func saveCities() {
         if let data = try? JSONEncoder().encode(cityCellData) {
             UserDefaults.standard.set(data, forKey: "Cities")
@@ -61,6 +51,17 @@ class CitiesViewController: UITableViewController {
     }
     
     
+    private func loadCities() -> [CityCellData]? {
+        if let loadedCellData = UserDefaults.standard.data(forKey: "Cities") {
+            if let decodedData = try? JSONDecoder().decode(Array<CityCellData>.self, from: loadedCellData) {
+                return decodedData
+            }
+        }
+        return nil
+    }
+    
+    
+    // The default city list. According to the specification, the list should also contain a nonexistent city. Guess, which one is it? :)
     private func defaultCities() -> [CityCellData] {
         return
             [CityCellData(cityName: "Sopron", countyName: "Gy-M-S megye", countryName: "hu"),
@@ -89,12 +90,6 @@ class CitiesViewController: UITableViewController {
     
     
     override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .insert {
-            print("insert")
-        }
-        if editingStyle == .delete {
-            print("delete")
-        }
         if editingStyle == .delete {
             cityCellData.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
@@ -123,6 +118,16 @@ class CitiesViewController: UITableViewController {
     }
     
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let cell = sender as? UITableViewCell else {return}
+        guard let detailsViewController = segue.destination as? DetailsViewController else {return}
+       
+        //detailsViewController.city = cell.textLabel?.text //shitty solution
+        //let's use the data model instead
+        detailsViewController.city = cityCellData[tableView.indexPath(for: cell)!.row].cityName
+    }
+    
+    
     @objc private func addCity() {
         let actionSheet = UIAlertController(title: "Add new city", message: "Please enter the name of the city", preferredStyle: .alert)
         actionSheet.addTextField()
@@ -146,7 +151,6 @@ class CitiesViewController: UITableViewController {
     @objc private func editTable(source: UIBarButtonItem) {
         tableView.setEditing(!tableView.isEditing, animated: true)
         source.title = tableView.isEditing ? "Done" : "Edit"
-        
     }
 }
 
