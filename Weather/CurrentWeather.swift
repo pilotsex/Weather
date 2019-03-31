@@ -44,8 +44,9 @@ struct CurrentWeather: Codable {
     }
     
     struct Sys: Codable {
-        let type, id: Int
-        let message: Double
+        let type: Int?
+        let id: Int?
+        let message: Double?
         let country: String
         let sunrise, sunset: Double
     }

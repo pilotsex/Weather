@@ -12,12 +12,25 @@ class DetailsViewController: UIViewController {
     
     var city: String?
     
-    //Labels of the summary pane
+    //Labels of the 'SummaryPane'
     @IBOutlet var cityLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var weatherSymbolLabel: UILabel!
     @IBOutlet var temperatureLabel: UILabel!
     @IBOutlet var lowHighLabel: UILabel!
+    
+    //Labels of 'InfoPane1'
+    @IBOutlet var sunRiseLabel: UILabel!
+    @IBOutlet var sunSetLabel: UILabel!
+    
+    //Labels of 'InfoPane2'
+    @IBOutlet var pressureLabel: UILabel!
+    @IBOutlet var humidityLabel: UILabel!
+    
+    //Labels of 'InfoPane3'
+    @IBOutlet var windLabel: UILabel!
+    @IBOutlet var cloudinessLabel: UILabel!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -68,11 +81,30 @@ class DetailsViewController: UIViewController {
     
     
     private func updateUI(with currentWeather: CurrentWeather) {
+        
+        //update SummaryPane
         cityLabel.text = currentWeather.name
+        weatherSymbolLabel.text = String(Conversions.weatherSymbolFor(code: currentWeather.weather[0].id))
         descriptionLabel.text = currentWeather.weather[0].description
         temperatureLabel.text = String("\(Int(round(currentWeather.main.temp)))°")
         lowHighLabel.text =
             String("\(Int(round(currentWeather.main.tempMin)))° / \(Int(round(currentWeather.main.tempMax)))°")
+        
+        //update InfoPane1
+        sunRiseLabel.text = Conversions.unixTimeToDisplayTime(unixTime: currentWeather.sys.sunrise)
+        sunSetLabel.text = Conversions.unixTimeToDisplayTime(unixTime: currentWeather.sys.sunset)
+        
+        //update InfoPane2
+        pressureLabel.text = String("\(round(currentWeather.main.pressure)) hPa")
+        humidityLabel.text = String("\(currentWeather.main.humidity) %")
+        
+        //update InfoPane3
+        if let windSpeed = currentWeather.wind.speed {
+            windLabel.text = String("\(round(windSpeed * 3.6)) km/h") //Metric: meter/sec
+        }
+        if let cloudiness = currentWeather.clouds.all {
+            cloudinessLabel.text = String("\(cloudiness) %")
+        }
     }
 
     

@@ -19,6 +19,7 @@
 		12615543224FBB00009FFD94 /* ServerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12615542224FBB00009FFD94 /* ServerData.swift */; };
 		12615545224FBB96009FFD94 /* SearchAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12615544224FBB96009FFD94 /* SearchAgent.swift */; };
 		12615549225004D6009FFD94 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12615548225004D6009FFD94 /* Forecast.swift */; };
+		1261554B225101D5009FFD94 /* Conversions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1261554A225101D5009FFD94 /* Conversions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -57,6 +58,7 @@
 		12615542224FBB00009FFD94 /* ServerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerData.swift; sourceTree = "<group>"; };
 		12615544224FBB96009FFD94 /* SearchAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAgent.swift; sourceTree = "<group>"; };
 		12615548225004D6009FFD94 /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
+		1261554A225101D5009FFD94 /* Conversions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Conversions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 				12615542224FBB00009FFD94 /* ServerData.swift */,
 				12615544224FBB96009FFD94 /* SearchAgent.swift */,
 				12615514224F96DA009FFD94 /* Main.storyboard */,
+				1261554A225101D5009FFD94 /* Conversions.swift */,
 				12615517224F96DB009FFD94 /* Assets.xcassets */,
 				12615519224F96DB009FFD94 /* LaunchScreen.storyboard */,
 				1261551C224F96DB009FFD94 /* Info.plist */,
@@ -276,6 +279,7 @@
 				12615549225004D6009FFD94 /* Forecast.swift in Sources */,
 				12615511224F96DA009FFD94 /* AppDelegate.swift in Sources */,
 				12615545224FBB96009FFD94 /* SearchAgent.swift in Sources */,
+				1261554B225101D5009FFD94 /* Conversions.swift in Sources */,
 				12615541224FBA62009FFD94 /* CurrentWeather.swift in Sources */,
 				1261553F224F992D009FFD94 /* DetailsViewController.swift in Sources */,
 			);
