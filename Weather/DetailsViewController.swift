@@ -12,6 +12,13 @@ class DetailsViewController: UIViewController {
     
     var city: String?
     
+    //Labels of the summary pane
+    @IBOutlet var cityLabel: UILabel!
+    @IBOutlet var descriptionLabel: UILabel!
+    @IBOutlet var weatherSymbolLabel: UILabel!
+    @IBOutlet var temperatureLabel: UILabel!
+    @IBOutlet var lowHighLabel: UILabel!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         updateOutput()
@@ -31,6 +38,7 @@ class DetailsViewController: UIViewController {
                 switch response {
                 case .Weather(currentWeather: let currentWeather):
                     print(currentWeather)
+                    self.updateUI(with: currentWeather)
                 
                 case .CityNotFound:
                     self.showErrorMessage(withTitle: "Error", message: "City not found")
@@ -58,6 +66,15 @@ class DetailsViewController: UIViewController {
         }
     }
     
+    
+    private func updateUI(with currentWeather: CurrentWeather) {
+        cityLabel.text = currentWeather.name
+        descriptionLabel.text = currentWeather.weather[0].description
+        temperatureLabel.text = String("\(Int(round(currentWeather.main.temp)))°")
+        lowHighLabel.text =
+            String("\(Int(round(currentWeather.main.tempMin)))° / \(Int(round(currentWeather.main.tempMax)))°")
+    }
+
     
     private func showErrorMessage(withTitle title: String, message: String) {
         let ac = UIAlertController(title: title , message: message, preferredStyle: .alert)
