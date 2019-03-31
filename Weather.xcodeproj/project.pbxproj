@@ -18,6 +18,7 @@
 		12615541224FBA62009FFD94 /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12615540224FBA62009FFD94 /* CurrentWeather.swift */; };
 		12615543224FBB00009FFD94 /* ServerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12615542224FBB00009FFD94 /* ServerData.swift */; };
 		12615545224FBB96009FFD94 /* SearchAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12615544224FBB96009FFD94 /* SearchAgent.swift */; };
+		12615549225004D6009FFD94 /* Forecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12615548225004D6009FFD94 /* Forecast.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		12615540224FBA62009FFD94 /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		12615542224FBB00009FFD94 /* ServerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerData.swift; sourceTree = "<group>"; };
 		12615544224FBB96009FFD94 /* SearchAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchAgent.swift; sourceTree = "<group>"; };
+		12615548225004D6009FFD94 /* Forecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forecast.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +111,7 @@
 				12615512224F96DA009FFD94 /* CitiesViewController.swift */,
 				1261553E224F992D009FFD94 /* DetailsViewController.swift */,
 				12615540224FBA62009FFD94 /* CurrentWeather.swift */,
+				12615548225004D6009FFD94 /* Forecast.swift */,
 				12615542224FBB00009FFD94 /* ServerData.swift */,
 				12615544224FBB96009FFD94 /* SearchAgent.swift */,
 				12615514224F96DA009FFD94 /* Main.storyboard */,
@@ -270,6 +273,7 @@
 			files = (
 				12615543224FBB00009FFD94 /* ServerData.swift in Sources */,
 				12615513224F96DA009FFD94 /* CitiesViewController.swift in Sources */,
+				12615549225004D6009FFD94 /* Forecast.swift in Sources */,
 				12615511224F96DA009FFD94 /* AppDelegate.swift in Sources */,
 				12615545224FBB96009FFD94 /* SearchAgent.swift in Sources */,
 				12615541224FBA62009FFD94 /* CurrentWeather.swift in Sources */,

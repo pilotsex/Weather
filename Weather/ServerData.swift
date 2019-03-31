@@ -15,6 +15,7 @@ struct ServerData {
     static let API_KEY = "310845f6cc63ec3e0ce10780fe264596"
     static let SERVER_ADDRESS = "http://api.openweathermap.org"
     static let QUERY = "https://api.openweathermap.org/data/2.5/weather?&units=metric&q="
+    static let FORECAST_QUERY = "https://api.openweathermap.org/data/2.5/forecast?&units=metric&q="
 
 }
 
@@ -23,3 +24,6 @@ struct ServerData {
 // http://api.openweathermap.org/data/2.5/weather?q=London,uk&APPID=310845f6cc63ec3e0ce10780fe264596
 // metric version
 // https://api.openweathermap.org/data/2.5/weather?q=London,uk&units=metric&APPID=310845f6cc63ec3e0ce10780fe264596
+// forecast
+// https://api.openweathermap.org/data/2.5/forecast?&units=metric&q=Gy%C5%91r&APPID=310845f6cc63ec3e0ce10780fe264596
+
