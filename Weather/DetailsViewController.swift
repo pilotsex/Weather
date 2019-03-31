@@ -31,6 +31,9 @@ class DetailsViewController: UIViewController {
     @IBOutlet var windLabel: UILabel!
     @IBOutlet var cloudinessLabel: UILabel!
     
+
+    @IBOutlet var forecastHeight: NSLayoutConstraint!
+    @IBOutlet var forecastScrollView: UIScrollView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,9 +53,7 @@ class DetailsViewController: UIViewController {
             DispatchQueue.main.async {
                 switch response {
                 case .Weather(currentWeather: let currentWeather):
-                    print(currentWeather)
                     self.updateUI(with: currentWeather)
-                
                 case .CityNotFound:
                     self.showErrorMessage(withTitle: "Error", message: "City not found")
                 case .UnknownResponse:
@@ -105,6 +106,7 @@ class DetailsViewController: UIViewController {
         if let cloudiness = currentWeather.clouds.all {
             cloudinessLabel.text = String("\(cloudiness) %")
         }
+        
     }
 
     
