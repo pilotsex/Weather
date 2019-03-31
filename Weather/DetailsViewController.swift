@@ -8,9 +8,10 @@
 
 import UIKit
 
-class DetailsViewController: UIViewController {
-    
+class DetailsViewController: UIViewController, UICollectionViewDataSource {
+
     var city: String?
+    var forecastData: Forecast?
     
     //Labels of the 'SummaryPane'
     @IBOutlet var cityLabel: UILabel!
@@ -31,12 +32,15 @@ class DetailsViewController: UIViewController {
     @IBOutlet var windLabel: UILabel!
     @IBOutlet var cloudinessLabel: UILabel!
     
-
+    //Forecast collectionView and its height constraint
     @IBOutlet var forecastHeight: NSLayoutConstraint!
-    @IBOutlet var forecastScrollView: UIScrollView!
+    @IBOutlet var forecastCollectionView: UICollectionView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.title = city
+        forecastCollectionView.dataSource = self
         updateOutput()
     }
     
@@ -50,7 +54,7 @@ class DetailsViewController: UIViewController {
             let response = SearchAgent.shared.getCurrentWeatherFor(cityName: city)
             
             //let's go back to the main thread and update the UI
-            DispatchQueue.main.async {
+            DispatchQueue.main.async {[unowned self] in
                 switch response {
                 case .Weather(currentWeather: let currentWeather):
                     self.updateUI(with: currentWeather)
@@ -61,25 +65,33 @@ class DetailsViewController: UIViewController {
                 }
             }
             
-            /*
-            let response = SearchAgent.shared.getForecastFor(cityName: city)
+            //let's download the forecast data
+            //the side scrolling forecast collectionView is hidden initially (height == 0), we will show it if we can grab valid data from the server
+            let forecastResponse = SearchAgent.shared.getForecastFor(cityName: city)
+            
             //let's go back to the main thread and update the UI
-            DispatchQueue.main.async {
-                switch response {
+            DispatchQueue.main.async {[unowned self] in
+                switch forecastResponse {
                 case .Forecast(forecast: let forecast):
-                    print(forecast)
+                    self.forecastData = forecast
                     
-                case .CityNotFound:
-                    self.showErrorMessage(withTitle: "Error", message: "City not found")
-                case .UnknownResponse:
-                    self.showErrorMessage(withTitle: "Unknown Error", message: "It seems, you are out of luck :)")
+                    //'open' the forecast view
+                    self.forecastHeight.constant = 100
+                    self.forecastCollectionView.alpha = 0.0
+                    UIView.animate(withDuration: 0.3, animations: {
+                       self.forecastCollectionView.alpha = 1.0
+                        self.view.layoutIfNeeded()
+                        })
+                    
+                    //populate the collectionView with the new data
+                    self.forecastCollectionView.reloadData()
+                
+                default: break //fail silently, no need to notify the user, the forecast view won't be opened and the forecast data will be missing
                 }
             }
-            */
- 
         }
     }
-    
+
     
     private func updateUI(with currentWeather: CurrentWeather) {
         
@@ -106,7 +118,6 @@ class DetailsViewController: UIViewController {
         if let cloudiness = currentWeather.clouds.all {
             cloudinessLabel.text = String("\(cloudiness) %")
         }
-        
     }
 
     
@@ -118,5 +129,31 @@ class DetailsViewController: UIViewController {
         }))
         self.present(ac, animated: true)
     }
+    
+    //forecast collectionView delegate methods
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard let forecast = forecastData else {return 0}
+        return forecast.list.count
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "WeatherTile", for: indexPath)
+        guard let forecast = forecastData else {return cell}
+        guard indexPath.row < forecast.list.count else {return cell}
+        guard forecast.list[indexPath.row].weather.count > 0 else {return cell}
+        
+        //yes, I hate these magic numbers, too, but this was the easiest way to access the views inside the collectionViewCell
+        (cell.viewWithTag(1) as! UILabel).text = Conversions.unixTimeToDisplayTime(unixTime: forecast.list[indexPath.row].dt)
+        (cell.viewWithTag(2) as! UILabel).text = String(Int(round(forecast.list[indexPath.row].main.temp)))
+        (cell.viewWithTag(3) as! UILabel).text = String(Conversions.weatherSymbolFor(code: forecast.list[indexPath.row].weather[0].id))
+        return cell
+    }
+    
     
 }

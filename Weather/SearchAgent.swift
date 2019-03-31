@@ -38,7 +38,7 @@ class SearchAgent {
         //let's piece together the 'current weather' query url and add percent escapes
         let queryUrl = ServerData.QUERY + cityName + "&APPID=" + ServerData.API_KEY
         guard let encodedQueryUrl = queryUrl.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlFragmentAllowed) else {return .CityNotFound}
-        print(encodedQueryUrl)
+        //print(encodedQueryUrl)
         
         //grab the data and decode it
         if let url = URL(string: encodedQueryUrl) {
@@ -55,7 +55,6 @@ class SearchAgent {
     }
     
     
-    
     public func getForecastFor(cityName: String) -> ForecastServerResponse {
         //currently, this can't happen, but let's make this future proof
         guard cityName.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 else {return .CityNotFound}
@@ -63,7 +62,7 @@ class SearchAgent {
         //let's piece together the query url and add percent escapes
         let queryUrl = ServerData.FORECAST_QUERY + cityName + "&APPID=" + ServerData.API_KEY
         guard let encodedQueryUrl = queryUrl.addingPercentEncoding(withAllowedCharacters: NSCharacterSet.urlFragmentAllowed) else {return .CityNotFound}
-        print(encodedQueryUrl)
+        //print(encodedQueryUrl)
         
         //grab the data and decode it
         if let url = URL(string: encodedQueryUrl) {
@@ -78,6 +77,4 @@ class SearchAgent {
         }
         return .UnknownResponse
     }
-    
-    
 }

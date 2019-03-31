@@ -31,7 +31,7 @@ struct Forecast: Codable {
     }
     
     struct List: Codable {
-        let dt: Int
+        let dt: Double
         let main: MainClass
         let weather: [Weather]
         let clouds: Clouds
@@ -81,15 +81,12 @@ struct Forecast: Codable {
         let pod: String
     }
     
-    
-    
     struct Weather: Codable {
         let id: Int
         let main: String
         let description: String
         let icon: String
     }
-    
     
     struct Wind: Codable {
         let speed, deg: Double

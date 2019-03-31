@@ -18,7 +18,6 @@ class Conversions {
         //dateFormatter.dateStyle = DateFormatter.Style.medium //Set date style
         //dateFormatter.timeZone = self.timeZone
         let localDate = dateFormatter.string(from: date)
-        print(localDate)
         return localDate
     }
     
